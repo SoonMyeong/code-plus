@@ -30,6 +30,8 @@ import java.util.Arrays;
  *     }
  * }
  *
+ * 이 문제.. BufferedReader, BufferedWriter 안 쓰면 시간초과 뜸..
+ *
  */
 public class Solution {
     @Test
