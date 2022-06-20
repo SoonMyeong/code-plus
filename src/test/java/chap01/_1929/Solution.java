@@ -31,7 +31,7 @@ public class Solution {
     private void eratosthenes(int a, int b) {
         boolean[] check = new boolean[b + 1]; //true : 삭제
         check[0] = check[1] = true;
-        for (int i = 2; i * i <= b; i++) { //약수 구할 때를 떠올려 보기
+        for (int i = 2; i * i <= b; i++) { // i 의 제곱이 b보다 커지면 범위를 넘어간 거라서 안구해도 됨, 아래 for 문 시작점이 i^2 임
             if (check[i]) {
                 continue;
             }
