@@ -39,10 +39,31 @@ public class Solution {
                 , {10, 12, 7, 2}
                 , {13, 11, 5, 6}
         };
-        kaying(arr);
+        kaying(arr[0]);
+        kaying(arr[1]);
+        kaying(arr[2]);
     }
 
-    private void kaying(int[][] arr) {
+    private void kaying(int[] arr) {
+        boolean check = false;
+        int m = arr[0];
+        int n = arr[1];
+        int x = arr[2];
+        int y = arr[3];
+        //나머지 연산을 하기 위함
+        x -= 1;
+        y -= 1;
+
+        for(int k = x; k < (m * n); k += m) {
+            if(k%n==y) {
+                System.out.println(k+1);
+                check = true;
+                break;
+            }
+        }
+        if(!check) {
+            System.out.println(-1);
+        }
 
     }
 
