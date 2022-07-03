@@ -21,13 +21,11 @@ import org.junit.jupiter.api.Test;
  *
  */
 public class Solution {
-    static boolean[] visited;
     static int[] arr;
     @Test
     void solution() {
         int n = 4;
         int m = 2;
-        visited = new boolean[n+1];
         arr = new int[m];
         recursive(0,1,n,m);
     }
@@ -45,13 +43,8 @@ public class Solution {
             return;
         }
         for(int i = start; i<=n; i++) {
-            if(visited[i]) {
-                continue;
-            }
-            visited[i] = true;
             arr[index] = i;
             recursive(index+1, i+1,n,m);
-            visited[i] = false;
         }
     }
 }
