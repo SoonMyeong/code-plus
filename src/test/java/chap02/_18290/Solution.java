@@ -23,19 +23,62 @@ import org.junit.jupiter.api.Test;
  *
  */
 public class Solution {
-    public static int[][] arr;
-    public static int[][] visited;
+    private static boolean[][] visited;
+    private static int max = Integer.MIN_VALUE;
+    private static int[] dx = {-1,1,0,0};
+    private static int[] dy = {0,0,-1,1};
+    static int n = 2;
+    static int m = 2;
+    static int k = 2;
+    static int[][] arr = new int[n][m];
     @Test
     void solution() {
-        int n = 2;
-        int m = 2;
-        int k = 2;
-        arr = new int[n+1][m+1];
-
-        recursive(n,m,k);
+        int[] numbers = {1,2,3,4};
+        int l = 0;
+        for(int i = 0; i< n; i++) {
+            for(int j = 0; j < m; j++) {
+                arr[i][j] = numbers[l];
+                l++;
+            }
+        }
+        visited = new boolean[n][m];
+        recursive(0,0, k);
+        System.out.println(max);
     }
 
-    private void recursive(int n, int m, int k) {
+    private void recursive(int count, int sum, int k) {
+        if(count == k) {
+            if(max < sum) {
+                max = sum;
+            }
+            return;
+        }
 
+        for(int x = 0; x < n; x++) {
+            for(int y = 0; y < m; y++) {
+                if(visited[x][y]) {
+                    continue;
+                }
+                boolean ok = true;
+                //인접한 위치에 있는 숫자를 골랐는지 확인, 골랐다면 false 처리
+                for(int i = 0; i < 4; i++) {
+                    int nx = x + dy[i];
+                    int ny = y + dx[i];
+
+                    if(nx >= 0 && nx <n && ny >=0 && ny < m) {
+                        if(visited[nx][ny]) {
+                            ok = false;
+                        }
+                    }
+                }
+                //기존  n과m 에서 하던 방식
+                if(ok) {
+                    visited[x][y] = true;
+                    recursive(count+1, sum+arr[x][y], k);
+                    visited[x][y] = false;
+                }
+            }
+        }
     }
+
 }
