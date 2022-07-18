@@ -1,5 +1,7 @@
 package chap03._14501;
 
+import org.junit.jupiter.api.Test;
+
 /**
  * 문제
  * 상담원으로 일하고 있는 백준이는 퇴사를 하려고 한다.
@@ -29,5 +31,27 @@ package chap03._14501;
  *
  */
 public class Solution {
+    int n = 7;
+    int result = 0;
+    int[] t = {0,3,5,1,1,2,4,2};
+    int[] p = {0,10,20,10,20,15,40,200};
+    @Test
+    void solution() {
+        recursive(1,0);
+        System.out.println(result);
+    }
+
+    public void recursive(int day, int sum) {
+        if(day == n + 1 ) {
+            result = Math.max(result, sum);
+            return;
+        }
+        if(day > n + 1) {
+            return;
+        }
+
+        recursive(day + t[day], sum + p[day]);
+        recursive(day + 1 , sum);
+    }
 
 }
