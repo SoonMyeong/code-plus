@@ -44,7 +44,7 @@ import java.util.Objects;
  */
 public class Solution {
     int n;
-    String[] operator = {"<", ">"};
+    char[] operator = {'<', '>'};
     boolean[] visited = new boolean[10];
     List<String> answer = new ArrayList<>();
     @Test
@@ -56,30 +56,28 @@ public class Solution {
         System.out.println(answer.get(0));
     }
 
-    private boolean ok(String num) {
-        for(int i = 0; i< n; i++) {
-            if(Objects.equals(operator[i], "<")) {
-                if(num.charAt(i) > num.charAt(i+1)) return false;
-            }
-            if(Objects.equals(operator[i], ">")) {
-                if(num.charAt(i) < num.charAt(i+1)) return false;
-            }
+    private boolean ok(char x, char y, char op) {
+        if(op == '<') {
+            if(x > y) return false;
+        }
+        if(op == '>') {
+            if(x < y) return false;
         }
         return true;
     }
 
     private void recusive(int index, String num) {
         if(index == n +1) {
-            if(ok(num)) {
-                answer.add(num);
-            }
+            answer.add(num);
             return;
         }
         for(int i = 0; i<= 9; i++) {
             if(visited[i]) continue;
-            visited[i] = true;
-            recusive(index+1, num + i);
-            visited[i] = false;
+            if(index == 0 || ok(num.charAt(index - 1), (char)(i+'0'), operator[index -1])) {
+                visited[i] = true;
+                recusive(index + 1, num + i);
+                visited[i] = false;
+            }
         }
     }
 }
