@@ -32,22 +32,16 @@ public class Solution
         }
 
 
-
-        for(int i = 0; i<arr.length -1; i++) {
-            for(int j = 0; j< 4; j++)
+        for(int j = 0; j< 4; j++)
+        {
+            if (operators[j] > 0)
             {
-                if (operators[j] > 0 && !visited[i])
-                {
-                    visited[i] = true;
-                    total = calcuate(arr, j, depth, total);
-                    operators[j] -= 1;
-                    dfs(arr, operators, depth + 1, total);
-                    operators[j] += 1;
-                    total = arr[0];
-                    visited[i] = false;
-                }
+                operators[j] -= 1;
+                dfs(arr, operators, depth + 1, calcuate(arr, j, depth, total));
+                operators[j] += 1;
             }
         }
+
 
     }
 
