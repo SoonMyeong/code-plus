@@ -1,8 +1,6 @@
 package chap05._2606;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Solution {
 
@@ -11,17 +9,38 @@ public class Solution {
         int computerCount = Integer.parseInt(scanner.nextLine());
         int settingCount = Integer.parseInt(scanner.nextLine());
 
-        List<List<Integer>> result = new ArrayList<>();
-        for(int i =0; i<= computerCount; i++) {
-            List<Integer> el = new ArrayList<>();
-            result.add(el);
+        List<Integer>[] result = new ArrayList[computerCount + 1];
+        boolean[] visited = new boolean[computerCount + 1];
+
+        for(int i = 0; i <= computerCount; i++) {
+            result[i] = new ArrayList<>();
         }
 
         for(int i = 0; i<settingCount; i++) {
             String[] numbers = scanner.nextLine().split(" ");
-            result.get(Integer.parseInt(numbers[0])).add(Integer.parseInt(numbers[1]));
-            result.get(Integer.parseInt(numbers[1])).add(Integer.parseInt(numbers[0]));
+            result[Integer.parseInt(numbers[0])].add(Integer.parseInt(numbers[1]));
+            result[Integer.parseInt(numbers[1])].add(Integer.parseInt(numbers[0]));
         }
 
+        System.out.println(bfs(1, result, visited));
+    }
+
+    private static int bfs(int start, List<Integer>[] result, boolean[] visited) {
+        int sum = 0;
+        visited[start] = true;
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(start);
+
+        while(!queue.isEmpty()) {
+            int n = queue.remove();
+            for(int i : result[n]) {
+                if(!visited[i]) {
+                    visited[i] = true;
+                    sum++;
+                    queue.add(i);
+                }
+            }
+        }
+        return sum;
     }
 }
